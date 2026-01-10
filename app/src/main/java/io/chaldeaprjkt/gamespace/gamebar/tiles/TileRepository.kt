@@ -126,7 +126,7 @@ class TileRepository @Inject constructor(
         add(
             ToggleableTile(
                 id = "notification",
-                label = "Danmaku",
+                label = context.getString(R.string.notification_danmaku),
                 icon = Icons.Default.Notifications,
                 state = mutableStateOf(appSettings.danmakuNotification),
                 setter = {
@@ -139,7 +139,7 @@ class TileRepository @Inject constructor(
         add(
             ToggleableTile(
                 id = "stay_awake",
-                label = "Stay Awake",
+                label = context.getString(R.string.stay_awake_title),
                 icon = Icons.Default.Bedtime,
                 state = mutableStateOf(systemSettings.stayAwake),
                 setter = { systemSettings.stayAwake = it }
@@ -159,7 +159,7 @@ class TileRepository @Inject constructor(
         add(
             ToggleableTile(
                 id = "dnd",
-                label = "DND",
+                label = context.getString(R.string.tile_dnd),
                 icon = Icons.Default.DoNotDisturb,
                 state = dndState,
                 setter = { enabled ->
@@ -174,7 +174,7 @@ class TileRepository @Inject constructor(
         add(
             ToggleableTile(
                 id = "fps_info",
-                label = "FPS Info",
+                label = context.getString(R.string.fps_Info_title),
                 icon = Icons.Default.BarChart,
                 state = mutableStateOf(appSettings.showFps),
                 setter = { appSettings.showFps = it }
@@ -184,7 +184,7 @@ class TileRepository @Inject constructor(
         add(
             ToggleableTile(
                 id = "auto_rotate",
-                label = "Auto Rotate",
+                label = context.getString(R.string.tile_auto_rotate),
                 icon = Icons.Default.ScreenRotation,
                 state = autoRotateState,
                 setter = {
@@ -200,7 +200,7 @@ class TileRepository @Inject constructor(
         add(
             FixedActionTile(
                 id = "boost_memory",
-                label = "Boost Memory",
+                label = context.getString(R.string.memory_boost),
                 icon = Icons.Default.Speed,
                 action = {
                     try {
@@ -214,7 +214,7 @@ class TileRepository @Inject constructor(
         add(
             FixedActionTile(
                 id = "settings",
-                label = "Settings",
+                label = context.getString(R.string.tile_settings),
                 icon = Icons.Default.Settings,
                 action = {
                     val intent = Intent(Settings.ACTION_SETTINGS).apply {
@@ -228,7 +228,7 @@ class TileRepository @Inject constructor(
         add(
             ToggleableTile(
                 id = "airplane_mode",
-                label = "Airplane Mode",
+                label = context.getString(R.string.tile_airplane),
                 icon = Icons.Default.AirplanemodeActive,
                 state = airplaneModeState,
                 setter = {
@@ -263,7 +263,7 @@ class TileRepository @Inject constructor(
             add(
                 ToggleableTile(
                     id = "mobile_data",
-                    label = "Mobile Data",
+                    label = context.getString(R.string.tile_mobile_data),
                     icon = Icons.Default.DataUsage,
                     state = mobileDataState,
                     setter = {
@@ -284,7 +284,7 @@ class TileRepository @Inject constructor(
             add(
                 ToggleableTile(
                     id = "touch_boost",
-                    label = "Touch Boost",
+                    label = context.getString(R.string.tile_touch_boost),
                     icon = Icons.Default.TouchApp,
                     state = touchBoostState,
                     setter = {

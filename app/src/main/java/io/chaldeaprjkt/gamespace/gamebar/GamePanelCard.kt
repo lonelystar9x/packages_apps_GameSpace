@@ -58,6 +58,7 @@ import androidx.compose.ui.graphics.drawscope.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.*
 import androidx.compose.ui.platform.*
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.text.style.*
 import androidx.compose.ui.unit.*
@@ -414,7 +415,7 @@ private fun TopRowHeader(
         ) {
             Icon(
                 imageVector = Icons.Default.Edit,
-                contentDescription = "Edit Tiles"
+                contentDescription = stringResource(R.string.panel_edit)
             )
         }
 
@@ -424,7 +425,7 @@ private fun TopRowHeader(
         ) {
             Icon(
                 imageVector = Icons.Default.ExpandMore,
-                contentDescription = if (headerExpanded) "Collapse" else "Expand",
+                contentDescription = if (headerExpanded) stringResource(R.string.panel_collapse) else stringResource(R.string.panel_expand),
                 modifier = Modifier.rotate(rotateArrow)
             )
         }
@@ -446,7 +447,7 @@ private fun InfoRow(
         InfoItem(icon = Icons.Default.DeviceThermostat, value = "$temp")
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = currentMode.displayName,
+            text = stringResource(currentMode.titleRes),
             style = MaterialTheme.typography.bodyLarge,
             color = modeColor
         )
@@ -504,7 +505,7 @@ fun TileEditPanel(
             IconButton(onClick = onClose) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                    contentDescription = "Back"
+                    contentDescription = stringResource(R.string.action_cancel)
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -514,7 +515,7 @@ fun TileEditPanel(
                     onClose()
                 }
             ) {
-                Text("Save")
+                Text(stringResource(R.string.panel_save))
             }
         }
 
@@ -526,17 +527,17 @@ fun TileEditPanel(
                 .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(12.dp))
                 .padding(12.dp)
         ) {
-            Text("Panel Options", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.panel_options), style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.height(8.dp))
 
             SettingToggleRow(
-                title = "Brightness Slider",
+                title = stringResource(R.string.panel_brightness),
                 checked = tileRepository.isBrightnessVisible.value,
                 onCheckedChange = { tileRepository.setBrightnessEnabled(it) }
             )
 
             SettingToggleRow(
-                title = "FPS Graph",
+                title = stringResource(R.string.panel_fps_graph),
                 checked = tileRepository.isFpsGraphVisible.value,
                 onCheckedChange = { tileRepository.setFpsGraphEnabled(it) }
             )
@@ -544,7 +545,7 @@ fun TileEditPanel(
         
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text("Selected Tiles", style = MaterialTheme.typography.titleMedium)
+        Text(stringResource(R.string.panel_selected_tiles), style = MaterialTheme.typography.titleMedium)
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -559,7 +560,7 @@ fun TileEditPanel(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Text("Available Tiles", style = MaterialTheme.typography.titleMedium)
+        Text(stringResource(R.string.panel_available_tiles), style = MaterialTheme.typography.titleMedium)
         Spacer(modifier = Modifier.height(8.dp))
 
         TileGroup(
@@ -959,7 +960,7 @@ fun GameModeSelector(
             ) {
                 Icon(
                     imageVector = mode.icon,
-                    contentDescription = mode.displayName,
+                    contentDescription = stringResource(mode.titleRes),
                     tint = color.copy(alpha = if (isSelected) 1f else 0.4f),
                     modifier = Modifier.size(24.dp)
                 )
@@ -1151,16 +1152,16 @@ private fun getPercentage(value: Double, min: Float, max: Float): Double {
     return ((value - min) / (max - min)).coerceIn(0.0, 1.0)
 }
 
-enum class GameMode(val displayName: String, val icon: ImageVector) {
-    Balanced("Balanced", Icons.Default.BatteryStd),
-    PowerSave("Power Save", Icons.Default.BatterySaver),
-    Performance("Performance", Icons.Default.Bolt)
-}
+enum class GameMode(val titleRes: Int, val icon: ImageVector) {
+    Balanced(R.string.mode_balanced, Icons.Default.BatteryStd),
+    PowerSave(R.string.mode_powersave, Icons.Default.BatterySaver),
+    Performance(R.string.mode_performance, Icons.Default.Bolt);
 
-fun GameMode.toSystemGameMode(): Int = when (this) {
-    GameMode.Balanced -> GameManager.GAME_MODE_STANDARD
-    GameMode.PowerSave -> GameManager.GAME_MODE_BATTERY
-    GameMode.Performance -> GameManager.GAME_MODE_PERFORMANCE
+    fun toSystemGameMode(): Int = when (this) {
+        Balanced -> GameManager.GAME_MODE_STANDARD
+        PowerSave -> GameManager.GAME_MODE_BATTERY
+        Performance -> GameManager.GAME_MODE_PERFORMANCE
+    }
 }
 
 fun fromSystemGameMode(value: Int): GameMode = when (value) {

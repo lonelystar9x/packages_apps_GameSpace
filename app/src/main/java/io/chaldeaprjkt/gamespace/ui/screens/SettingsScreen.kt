@@ -145,14 +145,14 @@ fun SettingsScreen(
     val fabItems = listOf(
         Triple(
             Icons.Filled.AppRegistration,
-            "Select apps to launch quickly"
+            stringResource(R.string.quick_start_apps_summary)
         ) {
             showQuickStartDialog = true
             fabMenuExpanded = false
         },
         Triple(
             Icons.Filled.SportsEsports,
-            "Add game"
+            stringResource(R.string.fab_add_game)
         ) {
             onAddGameClick()
             fabMenuExpanded = false
@@ -172,10 +172,10 @@ fun SettingsScreen(
     )
 
     val ringerModeOptions = listOf(
-        "0" to "Silent",
-        "1" to "Vibrate",
-        "2" to "Normal",
-        "3" to "Do not change"
+        "0" to stringResource(R.string.opt_ringer_silent),
+        "1" to stringResource(R.string.opt_ringer_vibrate),
+        "2" to stringResource(R.string.opt_ringer_normal),
+        "3" to stringResource(R.string.opt_ringer_no_change)
     )
 
     if (showQuickStartDialog) {
@@ -296,7 +296,7 @@ fun SettingsScreen(
 
             item {
                 Spacer(modifier = Modifier.height(16.dp))
-                SettingsSection(title = "Notifications") {
+                SettingsSection(title = stringResource(R.string.settings_section_notif)) {
                     SettingsSwitch(
                         title = stringResource(R.string.call_overlay_enabled_title),
                         summary = stringResource(R.string.call_overlay_enabled_summary),
@@ -333,7 +333,7 @@ fun SettingsScreen(
 
             item {
                 Spacer(modifier = Modifier.height(16.dp))
-                SettingsSection(title = "Display & Gestures") {
+                SettingsSection(title = stringResource(R.string.settings_section_display)) {
                     SettingsSwitch(
                         title = stringResource(R.string.auto_brightness_disabled_title),
                         summary = stringResource(R.string.auto_brightness_disabled_summary),
@@ -448,12 +448,12 @@ private fun QuickStartAppsDialog(
         },
         confirmButton = {
             TextButton(onClick = { onConfirm(selected.toSet()) }) {
-                Text("OK")
+                Text(stringResource(R.string.action_ok))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )
@@ -653,7 +653,7 @@ private fun GameIllustration(
         }
 
         Text(
-            text = "Game Space",
+            text = stringResource(R.string.settings_title),
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             modifier = Modifier
@@ -692,7 +692,7 @@ private fun GameLibrarySection(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "No games added yet",
+                    text = stringResource(R.string.no_games_added),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
                 )
@@ -716,12 +716,12 @@ private fun GameLibrarySection(
     }
 }
 
-
+@Composable
 private fun getGameModeLabel(mode: Int): String {
     return when (mode) {
-        1 -> "Standard"
-        2 -> "Performance"
-        3 -> "Battery"
-        else -> "Standard"
+        1 -> stringResource(R.string.mode_standard)
+        2 -> stringResource(R.string.mode_performance)
+        3 -> stringResource(R.string.mode_powersave)
+        else -> stringResource(R.string.mode_standard)
     }
 }

@@ -67,12 +67,12 @@ fun PerAppSettingsScreen(
                         onUnregister(viewModel.packageName)
                     }
                 ) {
-                    Text("Remove")
+                    Text(stringResource(R.string.action_remove))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showUnregisterDialog = false }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )
@@ -92,7 +92,7 @@ fun PerAppSettingsScreen(
                     IconButton(onClick = onBackClick) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.action_cancel)
                         )
                     }
                 },
@@ -121,18 +121,18 @@ fun PerAppSettingsScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            SettingsSection(title = "Game Mode") {
+            SettingsSection(title = stringResource(R.string.per_app_mode_title)) {
                 SettingsDropdown(
                     title = stringResource(R.string.per_app_mode_title),
                     selectedValue = viewModel.preferredMode.toString(),
-                    options = viewModel.gameModeOptions.map { it.first.toString() to it.second },
+                    options = viewModel.gameModeOptions.map { it.first.toString() to stringResource(it.second) },
                     onValueChange = { viewModel.updatePreferredMode(it.toIntOrNull() ?: 1) },
                     icon = Icons.Rounded.Speed
                 )
             }
 
             if (viewModel.angleFeatureEnabled) {
-                SettingsSection(title = "Graphics") {
+                SettingsSection(title = stringResource(R.string.per_app_graphics)) {
                     SettingsSwitch(
                         title = stringResource(R.string.per_app_angle_title),
                         summary = if (viewModel.anglePackageAvailable) {
@@ -151,7 +151,7 @@ fun PerAppSettingsScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             SettingsClickable(
-                title = "Remove from library",
+                title = stringResource(R.string.per_app_remove),
                 summary = stringResource(R.string.per_app_unregister, viewModel.gameLabel),
                 onClick = { showUnregisterDialog = true },
                 icon = Icons.Rounded.Delete
@@ -224,7 +224,7 @@ private fun GameHeader(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Registered Game",
+                    text = stringResource(R.string.per_app_registered),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
                 )
